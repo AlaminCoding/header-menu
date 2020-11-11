@@ -1,6 +1,6 @@
 header {
   position: absolute;
-  background-color: rgb(0, 0, 0, 1);
+  background-color: rgb(0, 0, 0, 0.5);
   top: 0;
   width: 100%;
 }
@@ -37,35 +37,175 @@ header {
   font-size: 14px;
   margin: 0px 10px;
   padding: 33px 0px;
+  position: relative;
 }
-.mega-menu {
+.menu-link:hover {
+  color: white;
+  text-decoration: none;
+}
+@keyframes imenuAfter {
+  0% {
+    width: 100%;
+  }
+  100% {
+    width: 0%;
+  }
+}
+@keyframes imenuBefore {
+  0% {
+    width: 30%;
+  }
+  100% {
+    width: 0%;
+  }
+}
+.menu-link:after {
+  content: "";
+  position: absolute;
+  width: 0%;
+  height: 3px;
+  bottom: 30px;
+  left: 0px;
+  background-color: #5bbc2e;
+  border: 0;
+  margin-left: 0;
+  animation-name: imenuAfter;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+  transition: 0.5s;
+}
+.menu-link:before {
+  content: "";
+  position: absolute;
+  width: 0%;
+  height: 3px;
+  bottom: 21px;
+  left: 0;
+  background-color: #5bbc2e;
+  animation-name: imenuBefore;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+  transition: 0.5s;
+}
+@keyframes menuAfter {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+@keyframes menuBefore {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 30%;
+  }
+}
+.menus:hover .menu-link:after {
+  animation-name: menuAfter;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+}
+.menus:hover .menu-link:before {
+  animation-name: menuBefore;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+}
+.mega-menu,
+.wmega-menu {
   position: absolute;
   background: black;
   width: 100%;
   top: 91px;
   left: 0;
   display: none;
+  padding: 40px 20px;
+}
+.wmega-menu {
+  width: 350px;
+  left: 60%;
+  padding: 20px;
 }
 .menus-sm {
   display: none;
 }
-@media screen and (min-width: 765px) {
+.signin-btn-sm,
+.signin-btn-lg {
+  color: white;
+  font-size: 16px;
+  padding: 5px 30px;
+  border: 2px solid white;
+  border-radius: 25px;
+  transition: 0.5s;
+}
+.signin-btn-sm:hover,
+.signin-btn-lg:hover {
+  color: black;
+  background-color: white;
+  transition: 0.5s;
+}
+.signin-btn-sm {
+  display: none;
+}
+.mb-header {
+  display: none;
+}
+.submenu-box p {
+  color: white;
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: 16px;
+  position: relative;
+  margin-bottom: 0;
+}
+.submenu-box ul {
+  padding-left: 0;
+  color: white;
+  list-style: none;
+}
+.submenu-box ul li a {
+  text-decoration: none;
+  color: white;
+  font-size: 16px;
+  font-weight: 400;
+}
+.submenu-list li {
+  padding: 3px 0px;
+}
+.wsubmenu-title {
+  padding: 4px 0px;
+}
+.wsubmenu-title a {
+  color: white;
+  text-decoration: none;
+}
+
+@media screen and (min-width: 1200px) {
   .menus:hover a {
-    border-bottom: 2px solid black;
     text-decoration: none;
   }
   .menus:hover .mega-menu {
     display: block;
+  }
+  .menus:hover .wmega-menu {
+    display: block;
+  }
+  .submenu-title {
+    padding-bottom: 3px;
+    border-bottom: 2px solid white;
   }
 }
 
 .menu-btn {
   cursor: pointer;
   display: none;
+  color: white;
 }
-.close-btn {
-  display: none;
+.close-btn img {
   cursor: pointer;
+  width: 22px;
 }
 .mm-close-btn {
   display: none;
@@ -74,12 +214,26 @@ header {
 .menu-btn i {
   font-size: 30px;
 }
-@media screen and (max-width: 765px) {
+@media screen and (max-width: 1200px) {
   header {
     position: static;
+    background-color: rgb(0, 0, 0, 1);
+  }
+  .logo {
+    margin-right: 0;
+  }
+  .mb-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 20px;
+    border-bottom: 2px solid white;
   }
   .menubar {
     position: static;
+  }
+  .menu-items {
+    width: auto;
   }
   .menu-btn {
     cursor: pointer;
@@ -87,6 +241,7 @@ header {
   }
   .menus-sm {
     display: list-item;
+    margin-top: 15px;
   }
   .menu-list-lg {
     display: none;
@@ -99,16 +254,11 @@ header {
     width: 100%;
     height: 100%;
     flex-direction: column;
-    background-color: cyan;
+    background-color: black;
     transform: translateX(-100%);
     transition: 0.2s;
   }
-  .close-btn {
-    display: block;
-    font-size: 30px;
-    text-align: right;
-    padding-right: 15px;
-  }
+
   .menu-list-open {
     transform: translateX(0);
     transition: 0.5s;
@@ -121,14 +271,28 @@ header {
   .menus a:hover {
     text-decoration: none;
   }
-  .mega-menu {
-    background: red;
-    height: 94%;
-    top: 6%;
+  .signin-btn-sm {
+    display: inline-block;
+  }
+  .signin-btn-lg {
+    display: none;
+  }
+  .wmega-menu {
+    width: 100%;
+    left: 0;
+  }
+  .mega-menu,
+  .wmega-menu {
+    background: black;
+    min-height: 85%;
+    top: 15%;
     display: block;
+    padding-left: 20px;
+    padding-right: 20px;
     transform: translateX(-100%);
     transition: 0.5s;
     overflow: hidden;
+    z-index: 1;
   }
   .mega-menu-open {
     transform: translateX(0);
@@ -136,6 +300,47 @@ header {
   }
   .mm-close-btn {
     display: block;
-    font-size: 30px;
+  }
+  .mm-close-btn img {
+    width: 32px;
+  }
+  .submenu-box {
+    padding: 10px 0px;
+    border-bottom: 2px solid white;
+  }
+  .submenu-title {
+    cursor: pointer;
+    position: relative;
+  }
+  .submenu-title:before {
+    content: "\f067";
+    position: absolute;
+    font-family: fontAwesome;
+    color: white;
+    top: 0;
+    right: 2px;
+  }
+  .submenu-title-open {
+    position: relative;
+  }
+  .submenu-title-open:before {
+    content: "\f068";
+    position: absolute;
+    font-family: fontAwesome;
+    color: white;
+    top: 0;
+    right: 2px;
+  }
+  .submenu-list {
+    display: none;
+  }
+  .submenu-list-open {
+    display: block;
+  }
+  .menu-link:before {
+    display: none;
+  }
+  .submenu-box ul {
+    padding-left: 10px;
   }
 }

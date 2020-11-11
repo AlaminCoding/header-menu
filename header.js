@@ -3,7 +3,10 @@ const closeBtn = document.getElementById("close-btn");
 const menuList = document.querySelector(".menu-list");
 const menuLink = document.querySelectorAll(".menu-link");
 const mmCloseBtn = document.querySelectorAll(".mm-close-btn");
-console.log(mmCloseBtn);
+
+const submenuTitle = document.querySelectorAll(".submenu-title");
+console.log(submenuTitle);
+
 menuLink.forEach((element) => {
   element.addEventListener("click", function () {
     let megaMenu = element.nextElementSibling;
@@ -24,4 +27,12 @@ menuBtn.addEventListener("click", function () {
 
 closeBtn.addEventListener("click", function () {
   menuList.classList.remove("menu-list-open");
+});
+
+submenuTitle.forEach((element) => {
+  element.addEventListener("click", function () {
+    let submenuList = element.nextElementSibling;
+    submenuList.classList.toggle("submenu-list-open");
+    element.classList.toggle("submenu-title-open");
+  });
 });
